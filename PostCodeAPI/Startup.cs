@@ -14,6 +14,7 @@ using Microsoft.Extensions.Logging;
 using PostCodeAPI.Common.Impl;
 using PostCodeAPI.Common.Interface;
 using PostCodeAPI.Common.Model;
+using PostCodeAPI.Middleware;
 using PostCodeAPI.Service.Impl;
 using PostCodeAPI.Service.Interface;
 
@@ -59,18 +60,13 @@ namespace PostCodeAPI
             services.AddHttpClient("PostCodesAPI", c => c.BaseAddress = new Uri(config.GetPostCodeBaseURI()));
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILogger<Startup> logger)
         {
-            logger.LogInformation("LogInformation Test 1");
-            logger.LogDebug("LogDebug Test 1");
-            logger.LogError("LogError Test 1");
-
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
-
+            app.UseMiddleware(typeof(ExceptionMiddleware));
             //app.UseHttpsRedirection();
 
             app.UseRouting();

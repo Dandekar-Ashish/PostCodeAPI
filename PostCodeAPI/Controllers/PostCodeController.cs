@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using PostCodeAPI.Service.Interface;
 using System;
 using System.Collections.Generic;
@@ -13,20 +14,35 @@ namespace PostCodeAPI.Controllers
     public class PostCodeController : ControllerBase
     {
         IPostCodeServices _iPostCodeServices;
-        public PostCodeController(IPostCodeServices iPostCodeServices)
+        private readonly ILogger _logger;
+        public PostCodeController(IPostCodeServices iPostCodeServices, ILogger<PostCodeController> logger)
         {
             _iPostCodeServices = iPostCodeServices;
+            _logger = logger;
         }
-        [HttpGet("autocomplete/{id}")]
-        public async Task<IActionResult> Get(string id)
+        /// <summary>
+        /// This API is used to Get Values for Autocomplete Search
+        /// </summary>
+        /// <param name="searchParams">User input text</param>
+        /// <returns></returns>
+        [HttpGet("autocomplete/{searchParams}")]
+        public async Task<IActionResult> Get(string searchParams)
         {
-            var data = await _iPostCodeServices.GetPostCodes(id);
+            _logger.LogInformation("PostCode Autocomplete Called = >" + searchParams);
+            var data = await _iPostCodeServices.GetPostCodes(searchParams);
             return Ok(data);
         }
-        [HttpGet("{id}")]
-        public async Task<IActionResult> PostCodeLookup(string id)
+
+        /// <summary>
+        /// This API is used for getting PostCode Details
+        /// </summary>
+        /// <param name="postCode">User selected text</param>
+        /// <returns></returns>
+        [HttpGet("{postCode}")]
+        public async Task<IActionResult> PostCodeLookup(string postCode)
         {
-            var data = await _iPostCodeServices.PostCodeLookup(id);
+            _logger.LogInformation("PostCode LookUp Called = >" + postCode);
+            var data = await _iPostCodeServices.PostCodeLookup(postCode);
             return Ok(data);
         }
     }
