@@ -1,0 +1,49 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31702.278
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PostCodeAPI", "PostCodeAPI\PostCodeAPI.csproj", "{CADDB63C-4F2D-4BE5-A70D-2393C9B75DDB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PostCodeAPI.Model", "PostCodeAPI.Model\PostCodeAPI.Model.csproj", "{F9BC787C-63CE-4473-BC14-CE67E4F4C876}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PostCodeAPI.Common", "PostCodeAPI.Common\PostCodeAPI.Common.csproj", "{6DC5E34A-7314-477A-A378-98275B919F7B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PostCodeAPI.Service", "PostCodeAPI.Service\PostCodeAPI.Service.csproj", "{688F63D9-041E-4A69-B3A7-A2195E5503DE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PostCodeAPI.Service.UnitTests", "PostCodeAPI.Service.UnitTests\PostCodeAPI.Service.UnitTests.csproj", "{E06F35F5-FF47-47E5-867F-F8AA0BE86711}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CADDB63C-4F2D-4BE5-A70D-2393C9B75DDB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CADDB63C-4F2D-4BE5-A70D-2393C9B75DDB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CADDB63C-4F2D-4BE5-A70D-2393C9B75DDB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CADDB63C-4F2D-4BE5-A70D-2393C9B75DDB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F9BC787C-63CE-4473-BC14-CE67E4F4C876}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F9BC787C-63CE-4473-BC14-CE67E4F4C876}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F9BC787C-63CE-4473-BC14-CE67E4F4C876}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F9BC787C-63CE-4473-BC14-CE67E4F4C876}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6DC5E34A-7314-477A-A378-98275B919F7B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6DC5E34A-7314-477A-A378-98275B919F7B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6DC5E34A-7314-477A-A378-98275B919F7B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6DC5E34A-7314-477A-A378-98275B919F7B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{688F63D9-041E-4A69-B3A7-A2195E5503DE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{688F63D9-041E-4A69-B3A7-A2195E5503DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{688F63D9-041E-4A69-B3A7-A2195E5503DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{688F63D9-041E-4A69-B3A7-A2195E5503DE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E06F35F5-FF47-47E5-867F-F8AA0BE86711}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E06F35F5-FF47-47E5-867F-F8AA0BE86711}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E06F35F5-FF47-47E5-867F-F8AA0BE86711}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E06F35F5-FF47-47E5-867F-F8AA0BE86711}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {6811BF28-3DB5-4EB1-AEE2-257A09A85259}
+	EndGlobalSection
+EndGlobal
