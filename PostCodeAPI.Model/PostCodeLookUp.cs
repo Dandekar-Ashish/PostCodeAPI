@@ -31,7 +31,7 @@ namespace PostCodeAPI.Model
                 }
                 else if (_latitude >= 53.27169)
                 {
-                    area = "latitude";
+                    area = "North";
                 }
             }
         }
