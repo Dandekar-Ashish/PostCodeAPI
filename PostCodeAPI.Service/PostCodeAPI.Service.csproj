@@ -1,15 +1,17 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
     <PackageReference Include="Microsoft.Extensions.Http" Version="6.0.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\PostCodeAPI.Common\PostCodeAPI.Common.csproj" />
+    <ProjectReference Include="..\PostCodeAPI.DataTransferModel\PostCodeAPI.DataTransferModel.csproj" />
     <ProjectReference Include="..\PostCodeAPI.Model\PostCodeAPI.Model.csproj" />
   </ItemGroup>
 

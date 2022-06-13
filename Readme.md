@@ -13,7 +13,7 @@ This project shows ASP.NET Core Web API project as an AWS Lambda exposed through
 For more information about how the Amazon.Lambda.AspNetCoreServer package works and how to extend its behavior view its [README](https://github.com/aws/aws-lambda-dotnet/blob/master/Libraries/src/Amazon.Lambda.AspNetCoreServer/README.md) file in GitHub.
 
 ## PostCodeAPI
-This is the Mail API project which Contains All endpoints.
+This is the Main API project which Contains All endpoints.
 
     AWS.Logger.AspNetCoreServer 
     Used this logger to write logs in to AWS Cloudewatch.
@@ -23,6 +23,10 @@ This is the Mail API project which Contains All endpoints.
 
     ExceptionMiddleware
     Exception Middleware is used to handle All Exception in the project.
+
+    Automaper
+    AutoMapper is an object-object mapper. 
+    Object-object mapping works by transforming an input object of one type into an output object of a different type.
 
     Project Files
 
@@ -40,7 +44,10 @@ This is the Mail API project which Contains All endpoints.
 This is the service layer which will be called from PostCodeAPI and it has business logic as well as it fetch data from 3rd pary API service (https://postcodes.io).
 
 ## PostCodeAPI.Model
-This project contains Simple Class as a Model files.
+This project contains Simple Class as a Model files to Deserialize Responce in to object.
+
+## PostCodeAPI.DataTransferModel
+This project contains Models which are actuly passed to API layer as a responce.
 
 ## PostCodeAPI.Common
 This project contains some common functions required in the application.
@@ -49,7 +56,8 @@ e.g It provide functions to get AppSetting Keys from Appsetting.Json
 ## PostCodeAPI.Service.UnitTests
 This is Unit test project for Service Layer. NUnit is used with MOQ.
 
-
+## Deployment Document 
+To deploy application on AWS , Please follow steps in attached Document. (PostCode Project Deployment steps.pdf)
 
 ## Here are some steps to follow from Visual Studio:
 

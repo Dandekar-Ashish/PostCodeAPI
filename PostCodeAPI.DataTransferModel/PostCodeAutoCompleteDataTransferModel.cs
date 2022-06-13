@@ -1,9 +1,10 @@
 ﻿using System.Collections.Generic;
 
-namespace PostCodeAPI.Model
+namespace PostCodeAPI.DataTransferModel
 {
-    public class PostCodeAutoComplete
+    public class PostCodeAutoCompleteDataTransferModel
     {
         public List<string> result { get; set; }
+
     }
 }

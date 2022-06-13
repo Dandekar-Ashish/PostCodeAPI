@@ -1,9 +1,8 @@
 using Microsoft.Extensions.Logging;
 using Moq;
 using NUnit.Framework;
-using PostCodeAPI.Common.Impl;
 using PostCodeAPI.Common.Interface;
-using PostCodeAPI.Model;
+using PostCodeAPI.DataTransferModel;
 using PostCodeAPI.Service.Impl;
 using PostCodeAPI.Service.Interface;
 using System.Net.Http;
@@ -13,25 +12,31 @@ namespace PostCodeAPI.Service.UnitTests
 {
     public class PostCodeServiceTest
     {
+        #region Global Variables
+        Mock httpClientFactory;
+        Mock<IHttpClientRepository> httpClientRepository;
+        Mock logger;
+        Mock<IEnvironmentConfiguration> environmentConfiguration; 
+        #endregion
+
         [SetUp]
         public void Setup()
         {
+            #region Mocking Dependancies
+            httpClientFactory = new Mock<IHttpClientFactory>();
+            httpClientRepository = new Mock<IHttpClientRepository>();
+            logger = new Mock<ILogger<PostCodeServices>>();
+            environmentConfiguration = new Mock<IEnvironmentConfiguration>();
+            #endregion
         }
 
         [Test]
         public async Task TestGetPostCodes()
         {
-            #region Mocking Dependancies
-            var httpClientFactory = new Mock<IHttpClientFactory>();
-            var httpClientRepository = new Mock<IHttpClientRepository>();
-            var logger = new Mock<ILogger<PostCodeServices>>();
-            var environmentConfiguration = new Mock<IEnvironmentConfiguration>();
-            #endregion
-
             httpClientRepository.Setup(p => p.HttpGet(It.IsAny<string>())).ReturnsAsync(HttpGetautocompleteProxy());
             environmentConfiguration.Setup(p => p.GetAutoCompleteRoute()).Returns("/postcodes/{0}/autocomplete");
             Mock<PostCodeServices> postCodeServices = new Mock<PostCodeServices>(httpClientFactory.Object, httpClientRepository.Object, environmentConfiguration.Object, logger.Object);
-            PostCodeAutoComplete data = await postCodeServices.Object.GetPostCodes("PA");
+            PostCodeAutoCompleteDataTransferModel data = await postCodeServices.Object.GetPostCodes("PA");
 
             #region Tests
             Assert.AreEqual(10, data.result.Count);
@@ -43,24 +48,17 @@ namespace PostCodeAPI.Service.UnitTests
         [Test]
         public async Task TestPostCodeLookup()
         {
-            #region Mocking Dependancies
-            var httpClientFactory = new Mock<IHttpClientFactory>();
-            var httpClientRepository = new Mock<IHttpClientRepository>();
-            var logger = new Mock<ILogger<PostCodeServices>>();
-            var environmentConfiguration = new Mock<IEnvironmentConfiguration>();
-            #endregion
-
             httpClientRepository.Setup(p => p.HttpGet(It.IsAny<string>())).ReturnsAsync(HttpGetpostcodesProxy());
             environmentConfiguration.Setup(p => p.GetPostCodeLookupRoute()).Returns("/postcodes/{0}");
             Mock<PostCodeServices> postCodeServices = new Mock<PostCodeServices>(httpClientFactory.Object, httpClientRepository.Object, environmentConfiguration.Object, logger.Object);
-            PostCodeLookUp data = await postCodeServices.Object.PostCodeLookup("CM8 1EF");
+            PostCodeLookUpDataTransferModel data = await postCodeServices.Object.PostCodeLookup("CM8 1EF");
 
             #region Tests
-            Assert.AreEqual("England", data.result.country);
-            Assert.AreEqual("East of England", data.result.region);
-            Assert.AreEqual("South", data.result.area);
-            Assert.AreEqual("E07000067", data.result.codes.admin_district);
-            Assert.AreEqual("E14001045", data.result.codes.parliamentary_constituency);
+            Assert.AreEqual("England", data.country);
+            Assert.AreEqual("East of England", data.region);
+            Assert.AreEqual("South", data.area);
+            Assert.AreEqual("E07000067", data.admin_district);
+            Assert.AreEqual("E14001045", data.parliamentary_constituency);
             #endregion
         }
 

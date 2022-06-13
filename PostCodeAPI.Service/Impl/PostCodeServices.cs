@@ -1,11 +1,10 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using AutoMapper;
+using Microsoft.Extensions.Logging;
 using PostCodeAPI.Common.Interface;
+using PostCodeAPI.DataTransferModel;
 using PostCodeAPI.Model;
 using PostCodeAPI.Service.Interface;
-using System;
-using System.Collections.Generic;
 using System.Net.Http;
-using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 
@@ -17,15 +16,16 @@ namespace PostCodeAPI.Service.Impl
         private readonly IHttpClientRepository _httpClientRepository;
         private readonly IEnvironmentConfiguration _environmentConfiguration;
         private readonly ILogger _logger;
-
-        public PostCodeServices(IHttpClientFactory clientFactory, IHttpClientRepository httpClientRepository, IEnvironmentConfiguration environmentConfiguration, ILogger<PostCodeServices> logger)
+        private readonly IMapper _mapper;
+        public PostCodeServices(IHttpClientFactory clientFactory, IHttpClientRepository httpClientRepository, IEnvironmentConfiguration environmentConfiguration, ILogger<PostCodeServices> logger, IMapper mapper)
         {
             client = clientFactory.CreateClient("PostCodesAPI");
             _httpClientRepository = httpClientRepository;
             _environmentConfiguration = environmentConfiguration;
             _logger = logger;
+            _mapper = mapper;
         }
-        public async Task<PostCodeAutoComplete> GetPostCodes(string countryCode)
+        public async Task<PostCodeAutoCompleteDataTransferModel> GetPostCodes(string countryCode)
         {
             var url = string.Format(_environmentConfiguration.GetAutoCompleteRoute(), countryCode);
             _logger.LogInformation("GetPostCodes url => " + url);
@@ -33,9 +33,13 @@ namespace PostCodeAPI.Service.Impl
             _logger.LogInformation("GetPostCodes response => " + response);
             PostCodeAutoComplete result = JsonSerializer.Deserialize<PostCodeAutoComplete>(response,
                    new JsonSerializerOptions() { PropertyNamingPolicy = JsonNamingPolicy.CamelCase });
-            return result;
+
+            PostCodeAutoCompleteDataTransferModel postCodeLookUpDataTransferModel = _mapper.Map<PostCodeAutoCompleteDataTransferModel>(result);
+
+
+            return postCodeLookUpDataTransferModel;
         }
-        public async Task<PostCodeLookUp> PostCodeLookup(string postCode)
+        public async Task<PostCodeLookUpDataTransferModel> PostCodeLookup(string postCode)
         {
             var url = string.Format(_environmentConfiguration.GetPostCodeLookupRoute(), postCode);
             _logger.LogInformation("PostCodeLookup url => " + url);
@@ -44,7 +48,9 @@ namespace PostCodeAPI.Service.Impl
             PostCodeLookUp result = JsonSerializer.Deserialize<PostCodeLookUp>(response,
                 new JsonSerializerOptions() { PropertyNamingPolicy = JsonNamingPolicy.CamelCase });
 
-            return result;
+            PostCodeLookUpDataTransferModel postCodeLookUpDataTransferModel =  _mapper.Map<PostCodeLookUpDataTransferModel>(result);
+
+            return postCodeLookUpDataTransferModel;
         }
     }
 }

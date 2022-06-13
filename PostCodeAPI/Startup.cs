@@ -1,12 +1,7 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -15,8 +10,10 @@ using PostCodeAPI.Common.Impl;
 using PostCodeAPI.Common.Interface;
 using PostCodeAPI.Common.Model;
 using PostCodeAPI.Middleware;
+using PostCodeAPI.Service.AutoMapperProfiles;
 using PostCodeAPI.Service.Impl;
 using PostCodeAPI.Service.Interface;
+using System;
 
 namespace PostCodeAPI
 {
@@ -51,13 +48,21 @@ namespace PostCodeAPI
 
             services.AddControllers();
 
+            var mapperConfig = new MapperConfiguration(mc =>
+            {
+                mc.AddProfile(new AutoMapperProfile());
+            });
+
+            IMapper mapper = mapperConfig.CreateMapper();
+            services.AddSingleton(mapper);
+
             var config = new EnvironmentConfiguration(Configuration.GetSection("PostalCode").Get<EnvironmentConfigurationSection>());
 
             services.AddSingleton<IEnvironmentConfiguration>(_ => config);
-            string str = config.GetPostCodeBaseURI();
+            string baseURI = config.GetPostCodeBaseURI();
             services.AddSingleton<IPostCodeServices, PostCodeServices>();
             services.AddSingleton<IHttpClientRepository, HttpClientRepository>();
-            services.AddHttpClient("PostCodesAPI", c => c.BaseAddress = new Uri(config.GetPostCodeBaseURI()));
+            services.AddHttpClient("PostCodesAPI", c => c.BaseAddress = new Uri(baseURI));
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILogger<Startup> logger)
@@ -67,7 +72,6 @@ namespace PostCodeAPI
                 app.UseDeveloperExceptionPage();
             }
             app.UseMiddleware(typeof(ExceptionMiddleware));
-            //app.UseHttpsRedirection();
 
             app.UseRouting();
 

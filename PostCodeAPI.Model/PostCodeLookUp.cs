@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace PostCodeAPI.Model
+﻿namespace PostCodeAPI.Model
 {
     public class PostCodeLookUp
     {

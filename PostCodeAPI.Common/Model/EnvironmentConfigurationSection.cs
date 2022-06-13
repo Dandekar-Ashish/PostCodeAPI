@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace PostCodeAPI.Common.Model
+﻿namespace PostCodeAPI.Common.Model
 {
     public class EnvironmentConfigurationSection
     {

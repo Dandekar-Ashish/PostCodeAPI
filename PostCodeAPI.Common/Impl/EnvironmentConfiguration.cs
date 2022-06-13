@@ -1,8 +1,5 @@
 ﻿using PostCodeAPI.Common.Interface;
 using PostCodeAPI.Common.Model;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace PostCodeAPI.Common.Impl
 {
